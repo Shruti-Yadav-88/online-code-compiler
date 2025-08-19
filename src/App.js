@@ -60,8 +60,8 @@ function App() {
 
   return (
     <div className="App-bg">
-      <header className="App-header-bar">
-        <h1 className="App-title">⚡ Online Code Compiler</h1>
+      <header className="App-header-bar-centered">
+        <h1 className="App-title-centered">⚡ Online Code Compiler</h1>
         <button className="App-theme-btn" onClick={handleThemeSwitch}>
           {theme === 'vs-dark' ? '🌙 Dark' : '☀️ Light'}
         </button>
@@ -106,7 +106,7 @@ function App() {
           </div>
           <div className="App-output-section">
             <h3 className="App-output-title">Output</h3>
-            <pre className="App-output-box">{output}</pre>
+            <pre className="App-output-box" style={{ color: '#ffc107', fontWeight: 'bold', fontSize: '1.25rem' }}>{output}</pre>
           </div>
         </div>
         {showToast && (
@@ -114,10 +114,10 @@ function App() {
         )}
       </div>
       <footer className="App-footer">
-        <span>Made with <span style={{color:'#ff4081'}}>❤</span> for students</span>
+        <span>Made with <span style={{color:'#ff4081'}}>❤</span> by Shruti Yadav</span>
       </footer>
     </div>
   );
 }
 
-export default App;ok
+export default App;
