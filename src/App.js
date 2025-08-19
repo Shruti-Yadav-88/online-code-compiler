@@ -114,7 +114,7 @@ function App() {
         )}
       </div>
       <footer className="App-footer">
-        <span>Made with <span style={{color:'#ff4081'}}>❤</span> by Shruti Yadav</span>
+        <span>Made with <span style={{color:'#ff4081'}}>❤</span> for students</span>
       </footer>
     </div>
   );
