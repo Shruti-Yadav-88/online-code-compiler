@@ -1,3 +1,106 @@
+.App-output-section {
+  margin-top: 24px;
+  background: rgba(34, 34, 34, 0.85);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  padding: 18px 18px 12px 18px;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.App-output-section.active {
+  box-shadow: 0 8px 32px #ff4081;
+  transform: scale(1.03);
+}
+.App-output-box {
+  background: linear-gradient(90deg, #ff9800 0%, #ff4081 100%);
+  color: #fff !important;
+  font-weight: bold;
+  padding: 2rem;
+  border-radius: 14px;
+  font-size: 1.25rem;
+  min-height: 120px;
+  max-height: 350px;
+  overflow-y: auto;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+  border: 2px solid #ff4081;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.App-output-box:active, .App-output-box:focus, .App-output-section.active .App-output-box {
+  box-shadow: 0 8px 32px #ff4081;
+  outline: none;
+  transform: scale(1.03);
+}
+/* Align controls and run button to the right */
+.App-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.App-run-btn {
+  margin-right: 0 !important;
+  margin-left: auto;
+}
+/* Modern glassy select dropdown */
+.App-select {
+  padding: 10px 22px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1.08rem;
+  font-weight: 600;
+  background: rgba(34, 34, 34, 0.92);
+  color: #ffc107;
+  margin-right: 18px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  backdrop-filter: blur(2px);
+  border: 1.5px solid #ff4081;
+}
+.App-select:focus {
+  outline: none;
+  background: rgba(65, 67, 69, 0.98);
+  box-shadow: 0 2px 8px #ff4081;
+}
+.App-select option {
+  background: #232526;
+  color: #ff4081;
+  font-weight: 600;
+}
+
+/* Modern glassy run button */
+.App-run-btn {
+  background: linear-gradient(90deg, #ff9800 0%, #ff4081 100%);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 10px 28px;
+  font-size: 1.08rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  margin-right: 200px;
+}
+.App-run-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px #ff9800;
+}
+.App-run-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.App-run-btn::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; right: 0; bottom: 0;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #ff9800 0%, #ff4081 100%);
+  opacity: 0.12;
+  pointer-events: none;
+}
 .App-output-title {
   color: #fff !important;
   font-size: 2rem;
@@ -24,7 +127,14 @@
   letter-spacing: 1px;
   gap: 12px;
 }
-.App-output-box {
+/* Output section styles */
+.App-output-section {
+  margin-top: 24px;
+  background: rgba(34, 34, 34, 0.85);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  padding: 18px 18px 12px 18px;
+}
 .App-output-box {
   background: #fff;
   color: #ffc107 !important;
@@ -41,7 +151,6 @@
 .App-output-box, .App-output-box * {
   color: #ffc107 !important;
   font-weight: bold !important;
-}
 }
 .glass {
   background: rgba(34, 34, 34, 0.85);

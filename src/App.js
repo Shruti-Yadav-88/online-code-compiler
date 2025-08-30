@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import MonacoEditor from '@monaco-editor/react';
 import axios from 'axios';
 import './App.css';
@@ -12,6 +12,14 @@ const languages = [
 ];
 
 function App() {
+  // Helper to detect language from code
+  function detectLanguage(code) {
+    if (/^\s*#include\s*<iostream>/m.test(code)) return 'cpp';
+    if (/^\s*public\s+class\s+/m.test(code)) return 'java';
+    if (/^\s*def\s+|^\s*import\s+|^\s*print\s*\(/m.test(code)) return 'python';
+    if (/^\s*function\s+|^\s*const\s+|^\s*let\s+|^\s*var\s+|console\.log/m.test(code)) return 'javascript';
+    return null;
+  }
   const defaultTemplates = {
     javascript: '// Write your code here',
     python: '# Write your code here',
@@ -20,6 +28,7 @@ function App() {
   };
   const [language, setLanguage] = useState(languages[0].id);
   const [code, setCode] = useState(defaultTemplates[languages[0].value]);
+  const outputSectionRef = useRef(null);
   const [output, setOutput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [theme, setTheme] = useState('vs-dark');
@@ -29,10 +38,19 @@ function App() {
   const handleRun = async () => {
     setIsLoading(true);
     setOutput('');
+    // Add active class to output section for hover effect
+    if (outputSectionRef.current) {
+      outputSectionRef.current.classList.add('active');
+      setTimeout(() => {
+        outputSectionRef.current.classList.remove('active');
+      }, 1800);
+    }
+    // Remove comment lines starting with // for all languages before running
+    let codeToRun = code.split('\n').filter(line => !line.trim().startsWith('//')).join('\n');
     const RAPIDAPI_KEY = 'ab358d09d8msh9a0844b081be905p12a8dejsnf9825df8e863';
     try {
       const response = await axios.post('https://judge0-ce.p.rapidapi.com/submissions?base64_encoded=false&wait=true', {
-        source_code: code,
+        source_code: codeToRun,
         language_id: language,
       }, {
         headers: {
@@ -56,6 +74,18 @@ function App() {
 
   const handleThemeSwitch = () => {
     setTheme(theme === 'vs-dark' ? 'light' : 'vs-dark');
+  };
+
+  // Detect language on code change
+  const handleCodeChange = (value) => {
+    setCode(value);
+    const detected = detectLanguage(value);
+    if (detected) {
+      const langObj = languages.find(l => l.value === detected);
+      if (langObj && langObj.id !== language) {
+        setLanguage(langObj.id);
+      }
+    }
   };
 
   return (
@@ -99,14 +129,14 @@ function App() {
               height="350px"
               language={languages.find(l => l.id === language)?.value || 'javascript'}
               value={code}
-              onChange={value => setCode(value)}
+              onChange={handleCodeChange}
               theme={theme}
               options={{ fontSize: 16, minimap: { enabled: false } }}
             />
           </div>
-          <div className="App-output-section">
+          <div className="App-output-section" ref={outputSectionRef}>
             <h3 className="App-output-title">Output</h3>
-            <pre className="App-output-box" style={{ color: '#ffc107', fontWeight: 'bold', fontSize: '1.25rem' }}>{output}</pre>
+            <pre className="App-output-box" tabIndex={0}>{output}</pre>
           </div>
         </div>
         {showToast && (
